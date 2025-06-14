@@ -11,7 +11,7 @@ class UpdateItemRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'fields' => ['required', 'array'],
+            'fields.*.from' => ['integer','nullable'],
+            'fields.*.to' => ['integer','nullable'],
         ];
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDayRequest;
 use App\Http\Requests\UpdateDayRequest;
-use App\Models\Day;
+use App\Models\Models\Day;
 
 class DayController extends Controller
 {

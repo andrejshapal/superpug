@@ -2,9 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\Profile;
-use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use App\Models\Models\Profile;
+use App\Models\Models\User;
 
 class ProfilePolicy
 {
@@ -13,7 +12,7 @@ class ProfilePolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,7 +20,7 @@ class ProfilePolicy
      */
     public function view(User $user, Profile $profile): bool
     {
-        return false;
+        return ($user->id === $profile->user_id);
     }
 
     /**
@@ -29,7 +28,7 @@ class ProfilePolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -37,7 +36,7 @@ class ProfilePolicy
      */
     public function update(User $user, Profile $profile): bool
     {
-        return false;
+        return ($user->id === $profile->user_id);
     }
 
     /**

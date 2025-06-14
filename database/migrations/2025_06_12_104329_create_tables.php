@@ -13,27 +13,26 @@ return new class extends Migration
     {
 
         Schema::create('difficulties', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('name');
             $table->unsignedInteger('days');
             $table->timestamps();
         });
 
         Schema::create('activities', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->primary();
+            $table->id()->primary();
+            $table->string('name')->unique();
             $table->string('unit');
             $table->timestamps();
         });
 
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->string('activities_name');
             $table->foreignId('difficulty_id')->constrained(table: 'difficulties');
+            $table->foreignId('activities_id')->constrained(table: 'activities');
             $table->unsignedInteger('from');
             $table->unsignedInteger('to');
-            $table->foreign('activities_name')->references('name')->on('activities');
-            $table->primary(['activities_name', 'difficulty_id']);
+            $table->primary(['activities_id', 'difficulty_id']);
             $table->timestamps();
         });
 
@@ -52,19 +51,18 @@ return new class extends Migration
         });
 
         Schema::create('challenges', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->foreignId('user_id')->constrained(table: 'users');
             $table->foreignId('day_id')->constrained(table: 'days');
-            $table->string('activities_name');
+            $table->foreignId('activities_id')->constrained(table: 'activities');
             $table->unsignedInteger('status');
             $table->unsignedInteger('experience');
-            $table->foreign('activities_name')->references('name')->on('activities');
             $table->timestamps();
 
         });
 
         Schema::create('profiles', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->foreignId('user_id')->constrained(table: 'users');
             $table->unsignedInteger('gold');
             $table->unsignedInteger('rest_days');
@@ -83,8 +81,8 @@ return new class extends Migration
     {
         Schema::dropIfExists('challenges');
         Schema::dropIfExists('profiles');
-        Schema::dropIfExists('plans');
         Schema::dropIfExists('days');
+        Schema::dropIfExists('plans');
         Schema::dropIfExists('items');
         Schema::dropIfExists('difficulties');
         Schema::dropIfExists('activities');

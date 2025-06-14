@@ -2,9 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\Challenge;
-use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use App\Models\Models\Challenge;
+use App\Models\Models\User;
 
 class ChallengePolicy
 {
@@ -21,7 +20,7 @@ class ChallengePolicy
      */
     public function view(User $user, Challenge $challenge): bool
     {
-        return false;
+        return ($user->id === $challenge->user_id);
     }
 
     /**
@@ -29,7 +28,7 @@ class ChallengePolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -37,7 +36,7 @@ class ChallengePolicy
      */
     public function update(User $user, Challenge $challenge): bool
     {
-        return false;
+        return true;
     }
 
     /**

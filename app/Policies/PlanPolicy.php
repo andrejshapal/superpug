@@ -2,9 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\Plan;
-use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use App\Models\Models\Plan;
+use App\Models\Models\User;
 
 class PlanPolicy
 {
@@ -21,7 +20,7 @@ class PlanPolicy
      */
     public function view(User $user, Plan $plan): bool
     {
-        return false;
+        return ($user->id === $plan->user_id);
     }
 
     /**
@@ -29,7 +28,7 @@ class PlanPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return true;
     }
 
     /**

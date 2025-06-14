@@ -11,7 +11,7 @@ class StoreDifficultyRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->user()?->isAdmin() ?? false;
     }
 
     /**
@@ -22,7 +22,8 @@ class StoreDifficultyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|unique:difficulties|max:255',
+            'days' => 'required|integer|min:0'
         ];
     }
 }

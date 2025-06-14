@@ -11,7 +11,7 @@ class StorePlanRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class StorePlanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'fields.available' => 'required|array|min:1',
+            'fields.main' => 'required|array|min:1|max:3',
+            'level' => 'required|integer|exists:difficulties,id',
+            'fields.available.*' => 'integer|exists:activities,id',
+            'fields.main.*' => 'integer|exists:activities,id',
         ];
     }
 }

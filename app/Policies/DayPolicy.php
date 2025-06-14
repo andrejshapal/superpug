@@ -2,9 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\Day;
-use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use App\Models\Models\Day;
+use App\Models\Models\User;
 
 class DayPolicy
 {

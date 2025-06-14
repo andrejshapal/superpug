@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
-use App\Models\Profile;
+use App\Models\Models\Profile;
 
 class ProfileController extends Controller
 {
@@ -13,7 +13,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //
+        return view('leaderboard', [
+            'users' => Profile::query()->with('user')->orderByDesc('experience')->get(),
+        ]);
     }
 
     /**
@@ -35,9 +37,11 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Profile $profile)
+    public function show()
     {
-        //
+        return view('inventory', [
+            'profile' => Profile::query()->where('user_id', auth()->id())->firstOrFail(),
+        ]);
     }
 
     /**
