@@ -10,6 +10,7 @@ use App\Http\Controllers\User\LoginUserController;
 use App\Http\Controllers\User\RegisterUserController;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\Localization;
+use App\Models\Models\Profile;
 use App\Models\Models\User;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\App;
@@ -68,6 +69,16 @@ Route::middleware('guest')->group(function () {
             'password'=>Hash::make(Str::random(32)),
         ]);
 
+        Profile::query()->firstOrCreate(
+            ['user_id' => $user->id],
+            [
+            'gold'=>0,
+            'rest_days'=>0,
+            'experience'=>0,
+            'backpacks'=>0,
+            'streak_days'=>0,
+            'last_streak_day'=>'1970-01-01'
+        ]);
         Auth::login($user);
 
         return redirect('/');
