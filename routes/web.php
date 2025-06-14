@@ -8,6 +8,7 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\LoginUserController;
 use App\Http\Controllers\User\RegisterUserController;
+use App\Http\Controllers\User\UserController;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\Localization;
 use App\Models\Models\Profile;
@@ -37,6 +38,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('item/{activityId}',  [ItemController::class, 'edit'])->name('item')->where('activityId', '[0-9]+')->middleware(IsAdmin::class);
     Route::put('item/{activityId}', [ItemController::class, 'update'])->where('activityId', '[0-9]+')->middleware(IsAdmin::class);
+
+    Route::get('user/delete/{userId}', [UserController::class, 'destroy'])->middleware(IsAdmin::class);
 
     Route::get('challenge/{challengeId}/{status}',  [ChallengeController::class, 'edit'])->name('challenge')->where('challengeId', '[0-9]+')->where('status', '[0-9]+');
 
