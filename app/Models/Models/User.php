@@ -6,6 +6,7 @@ namespace App\Models\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -16,6 +17,8 @@ class User extends Authenticatable implements Auditable
 
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

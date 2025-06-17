@@ -16,7 +16,7 @@ class UserController extends Controller
         if (auth()->user()->cannot('delete', auth()->user())) {
             abort(403, 'You are not authorized to delete users.');
         }
-        User::destroy($userId);
+        User::find($userId)->delete();
 
         return redirect('/');
     }

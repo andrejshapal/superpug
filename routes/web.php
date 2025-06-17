@@ -64,7 +64,10 @@ Route::middleware('guest')->group(function () {
     })->name('google');
     Route::get('/auth2callback', function () {
         $googleUser = Socialite::driver('google')->user();
-        $user = User::updateOrCreate([
+
+        User::withTrashed()->where('email', $googleUser->email)->restore();
+
+        $user = User::withTrashed()->updateOrCreate([
             'email' => $googleUser->email,
         ], [
             'name' => $googleUser->name,
